@@ -1,0 +1,80 @@
+# 
+# WebLogic Automation Book Source Code (WLST script collection)
+# 
+# This file is part of the WLS-Automation book sourcecode software distribution. 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE 
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# @author Martin Heinzl
+# Copyright (C) 2013 MH-EnterpriseConsulting, All rights reserved.
+#
+#
+#
+
+###########################################################################
+# Test properties for a test domain
+###########################################################################
+
+# Domain Props
+basePortNumber = 20000
+domainName=MartinTest_Domain
+
+
+# Adminserver
+
+# Cluster
+amountCluster=3
+cluster.1.name=WebTier_Cluster
+cluster.2.name=BusinessTier_Cluster
+cluster.3.name=Messaging_Cluster
+
+
+# Machine
+amountMachine = 2
+machine.1.name=testMachine1
+machine.1.listenerAddress=testserver_1.xyz.com
+machine.2.name=testMachine2
+machine.2.listenerAddress=testserver_2.xyz.com
+
+
+# ManagedServer
+amountManagedServer =6 
+managedserver.1.addToCluster = WebTier_Cluster
+managedserver.1.machine=testMachine1
+managedserver.2.addToCluster = WebTier_Cluster
+managedserver.2.machine=testMachine2
+managedserver.3.addToCluster = BusinessTier_Cluster
+managedserver.3.machine=testMachine1
+managedserver.4.addToCluster = BusinessTier_Cluster
+managedserver.4.machine=testMachine2
+managedserver.5.addToCluster = Messaging_Cluster
+managedserver.5.machine=testMachine1
+managedserver.6.addToCluster = Messaging_Cluster
+managedserver.6.machine=testMachine2
+
+
+ Custom Deloyment
+amountDeployments = 1
+deployment.1.applicationname = Business_Test_App
+deployment.1.sourcepath = /applications/stage/business_test1.ear
+deployment.1.targets = BusinessTier_Cluster
+
+##############################################################
+# Datasource configuration
+# IMPORTANT:  if this value is >0 then you must define all datasource properties for the mentioned number of DS
+amountDatasources = 1
+
+datasource.1.name=MyPersistentBackend
+datasource.1.relativeWalletDir=prototype
+datasource.1.url=jdbc:oracle:thin:/@testdbserver:1801:TEST
+datasource.1.target=BusinessTier_Cluster
+
